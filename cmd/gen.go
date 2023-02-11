@@ -24,6 +24,7 @@ func main() {
 	{
 		PROXY += "windows.com windows.net office.com microsoft.com "
 		PROXY += "contentsync.onenote.com hierarchyapi.onenote.com www.onenote.com "
+		PROXY += "bing.com "
 	}
 	// Apple
 	{
@@ -44,9 +45,9 @@ func main() {
 	// Crusaders Quest
 	{
 		DIRECT += "nhnst.com "
-		DIRECT += "toastoven.net "
 		DIRECT += "cq-pvp.hangame.com " // 匹配队友，对手（需要直连）
 		DIRECT += "cq-cha.hangame.com " // 进入匹配服务器（需要直连）
+		DIRECT += "toastoven.net "
 		// DIRECT += "cru.cdn.toastoven.net adam.gslb.toastoven.net api-iaptacc.gslb.toastoven.net "
 		DIRECT += "unity3d.com "
 	}
