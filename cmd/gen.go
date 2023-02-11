@@ -64,7 +64,7 @@ func SaveConfig(domainProxy, domainDirect []string, MODE string) {
 	var rule string
 	switch MODE {
 	case "quan x":
-		conf, err := os.Create("./rules/quanx.conf")
+		conf, err := os.Create("./rules/quan_x.conf")
 		if err != nil {
 			fmt.Println(err.Error())
 			return
