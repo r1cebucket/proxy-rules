@@ -74,6 +74,7 @@ func SaveConfig(domainProxy, domainDirect []string, MODE string) {
 			rule = fmt.Sprintf("domain:%s\n", domain)
 			confProxy.Write([]byte(rule))
 		}
+		confDirect.Write([]byte("geosite:cn\n"))
 		for _, domain := range domainDirect[:len(domainDirect)-1] {
 			rule = fmt.Sprintf("domain:%s\n", domain)
 			confDirect.Write([]byte(rule))
