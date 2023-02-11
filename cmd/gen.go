@@ -17,19 +17,28 @@ func main() {
 		"matsuri",
 	}
 
+	// TODO
+	//
+
 	// PROXY
 	PROXY := "amp-api-edge.apps.apple.com push.apple.com inappcheck.itunes.apple.com app-measurement.com nexoncdn.co.kr nexon.com nexon.io "
+	// Microsoft
+	PROXY += "windows.com windows.net office.com microsoft.com "
+	PROXY += "contentsync.onenote.com hierarchyapi.onenote.com www.onenote.com "
+	// Apple
+	PROXY += "app.adjust.com "
 	// Crusaders Quest
-	PROXY += "nhn.com adam.gslb.toastoven.net "
-	domainProxy = strings.Split(PROXY, " ")
+	PROXY += "cq.hangame.com cq-pvp.hangame.com cq-cha.hangame.com "
+	PROXY += "nhn.com gslb-gamebase.nhncloudservice.com toast.com "
 
 	// DIRECT
 	DIRECT := ""
 	// Microsoft
-	DIRECT += "microsoft.com microsoftonline.com sharepoint.com office.com office.net "
+	DIRECT += "microsoftonline.com sharepoint.com office.net live.com onenote.com "
 	// Crusaders Quest
-	DIRECT += "cq.hangame.com cq-pvp.hangame.com cq-cha.hangame.com gslb-gamebase.nhncloudservice.com " // ios
-	DIRECT += "nhnst.com "
+	DIRECT += "nhnst.com cru.cdn.toastoven.net adam.gslb.toastoven.net api-iaptacc.gslb.toastoven.net "
+	DIRECT += "unity3d.com "
+	domainProxy = strings.Split(PROXY, " ")
 	domainDirect = strings.Split(DIRECT, " ")
 
 	for _, MODE := range MODES {
