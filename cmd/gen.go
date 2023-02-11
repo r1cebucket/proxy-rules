@@ -31,8 +31,7 @@ func main() {
 	}
 	// Crusaders Quest
 	{
-		PROXY += "hangame.com "
-		// PROXY += "cq.hangame.com cq-pvp.hangame.com cq-cha.hangame.com "
+		PROXY += "cq.hangame.com "
 		PROXY += "nhn.com gslb-gamebase.nhncloudservice.com toast.com "
 	}
 
@@ -46,6 +45,8 @@ func main() {
 	{
 		DIRECT += "nhnst.com "
 		DIRECT += "toastoven.net "
+		DIRECT += "cq-pvp.hangame.com " // 匹配队友，对手（需要直连）
+		DIRECT += "cq-cha.hangame.com " // 进入匹配服务器（需要直连）
 		// DIRECT += "cru.cdn.toastoven.net adam.gslb.toastoven.net api-iaptacc.gslb.toastoven.net "
 		DIRECT += "unity3d.com "
 	}
