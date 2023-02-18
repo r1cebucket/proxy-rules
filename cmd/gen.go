@@ -7,10 +7,7 @@ import (
 )
 
 func main() {
-	var MODES []string
-	var domainProxy, domainDirect []string
-
-	MODES = []string{
+	MODES := []string{
 		"clash",
 		"quan x",
 		"matsuri",
@@ -19,29 +16,42 @@ func main() {
 	// TODO
 	//
 
+	var domainProxy, domainDirect []string
+
 	// PROXY
 	PROXY := "amp-api-edge.apps.apple.com push.apple.com inappcheck.itunes.apple.com app-measurement.com nexoncdn.co.kr nexon.com nexon.io "
 	// Microsoft
 	{
 		PROXY += "windows.com windows.net office.com microsoft.com "
 		PROXY += "contentsync.onenote.com hierarchyapi.onenote.com www.onenote.com "
+		PROXY += "bing.com "
 	}
 	// Apple
-	PROXY += "app.adjust.com "
+	{
+		PROXY += "app.adjust.com "
+	}
 	// Crusaders Quest
-	PROXY += "hangame.com "
-	// PROXY += "cq.hangame.com cq-pvp.hangame.com cq-cha.hangame.com "
-	PROXY += "nhn.com gslb-gamebase.nhncloudservice.com toast.com "
+	{
+		PROXY += "cq.hangame.com "
+		PROXY += "nhn.com gslb-gamebase.nhncloudservice.com toast.com "
+	}
 
 	// DIRECT
 	DIRECT := ""
 	// Microsoft
-	DIRECT += "microsoftonline.com sharepoint.com office.net live.com onenote.com "
+	{
+		DIRECT += "microsoftonline.com sharepoint.com office.net live.com onenote.com "
+	}
 	// Crusaders Quest
-	DIRECT += "nhnst.com "
-	DIRECT += "toastoven.net "
-	// DIRECT += "cru.cdn.toastoven.net adam.gslb.toastoven.net api-iaptacc.gslb.toastoven.net "
-	DIRECT += "unity3d.com "
+	{
+		DIRECT += "nhnst.com "
+		DIRECT += "cq-pvp.hangame.com " // 匹配队友，对手（需要直连）
+		DIRECT += "cq-cha.hangame.com " // 进入匹配服务器（需要直连）
+		DIRECT += "toastoven.net "
+		// DIRECT += "cru.cdn.toastoven.net adam.gslb.toastoven.net api-iaptacc.gslb.toastoven.net "
+		DIRECT += "unity3d.com "
+	}
+
 	domainProxy = strings.Split(PROXY, " ")
 	domainDirect = strings.Split(DIRECT, " ")
 
@@ -54,7 +64,7 @@ func SaveConfig(domainProxy, domainDirect []string, MODE string) {
 	var rule string
 	switch MODE {
 	case "quan x":
-		conf, err := os.Create("./rules/quanx.conf")
+		conf, err := os.Create("./rules/quan_x.conf")
 		if err != nil {
 			fmt.Println(err.Error())
 			return
