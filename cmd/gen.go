@@ -92,6 +92,31 @@ func SaveConfig(domainProxy, domainDirect []string, MODE string) {
 			rule = fmt.Sprintf("domain:%s\n", domain)
 			confDirect.Write([]byte(rule))
 		}
+	case "clash":
+		confProxy, err := os.Create("./rules/clash_proxy.conf")
+		if err != nil {
+			fmt.Println(err.Error())
+			return
+		}
+		confDirect, err := os.Create("./rules/clash_direct.conf")
+		if err != nil {
+			fmt.Println(err.Error())
+			return
+		}
+		defer confProxy.Close()
+		defer confDirect.Close()
+
+		confProxy.Write([]byte("payload:\n"))
+		confDirect.Write([]byte("payload:\n"))
+
+		for _, domain := range domainProxy[:len(domainProxy)-1] {
+			rule = fmt.Sprintf("\t- '+.%s'\n", domain)
+			confProxy.Write([]byte(rule))
+		}
+		for _, domain := range domainDirect[:len(domainDirect)-1] {
+			rule = fmt.Sprintf("\t- '+.%s'\n", domain)
+			confDirect.Write([]byte(rule))
+		}
 	default:
 		fmt.Println("no such mode:", MODE)
 	}
