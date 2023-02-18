@@ -22,7 +22,7 @@ func main() {
 	PROXY := "amp-api-edge.apps.apple.com push.apple.com inappcheck.itunes.apple.com app-measurement.com nexoncdn.co.kr nexon.com nexon.io "
 	// Microsoft
 	{
-		PROXY += "windows.com windows.net office.com microsoft.com "
+		PROXY += "windows.com windows.net office.com microsoft.com live.com "
 		PROXY += "contentsync.onenote.com hierarchyapi.onenote.com www.onenote.com "
 		PROXY += "bing.com "
 	}
@@ -40,7 +40,7 @@ func main() {
 	DIRECT := ""
 	// Microsoft
 	{
-		DIRECT += "microsoftonline.com sharepoint.com office.net live.com onenote.com "
+		DIRECT += "microsoftonline.com sharepoint.com office.net onenote.com "
 	}
 	// Crusaders Quest
 	{
@@ -126,6 +126,22 @@ func SaveConfig(domainProxy, domainDirect []string, MODE string) {
 		for _, domain := range domainDirect[:len(domainDirect)-1] {
 			rule = fmt.Sprintf("\t- '+.%s'\n", domain)
 			confDirect.Write([]byte(rule))
+		}
+
+		conf, err := os.Create("./rules/clash.conf")
+		if err != nil {
+			fmt.Println(err.Error())
+			return
+		}
+		defer conf.Close()
+
+		for _, domain := range domainProxy[:len(domainProxy)-1] {
+			rule = fmt.Sprintf("  - DOMAIN-SUFFIX,%s,PROXY\n", domain)
+			conf.Write([]byte(rule))
+		}
+		for _, domain := range domainDirect[:len(domainDirect)-1] {
+			rule = fmt.Sprintf("  - DOMAIN-SUFFIX,%s,DIRECT\n", domain)
+			conf.Write([]byte(rule))
 		}
 	default:
 		fmt.Println("no such mode:", MODE)
