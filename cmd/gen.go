@@ -120,11 +120,11 @@ func SaveConfig(domainProxy, domainDirect []string, MODE string) {
 		confDirect.Write([]byte("payload:\n"))
 
 		for _, domain := range domainProxy[:len(domainProxy)-1] {
-			rule = fmt.Sprintf("\t- '+.%s'\n", domain)
+			rule = fmt.Sprintf("  - '+.%s'\n", domain)
 			confProxy.Write([]byte(rule))
 		}
 		for _, domain := range domainDirect[:len(domainDirect)-1] {
-			rule = fmt.Sprintf("\t- '+.%s'\n", domain)
+			rule = fmt.Sprintf("  - '+.%s'\n", domain)
 			confDirect.Write([]byte(rule))
 		}
 
