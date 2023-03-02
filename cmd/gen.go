@@ -19,7 +19,7 @@ func main() {
 	var domainProxy, domainDirect []string
 
 	// PROXY
-	PROXY := "amp-api-edge.apps.apple.com push.apple.com inappcheck.itunes.apple.com app-measurement.com nexoncdn.co.kr nexon.com nexon.io "
+	PROXY := "" // "amp-api-edge.apps.apple.com push.apple.com inappcheck.itunes.apple.com app-measurement.com nexoncdn.co.kr nexon.com nexon.io "
 	// Microsoft
 	{
 		PROXY += "windows.com windows.net office.com microsoft.com live.com "
