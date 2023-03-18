@@ -19,13 +19,14 @@ func main() {
 	var domainProxy, domainDirect []string
 
 	// PROXY
-	PROXY := "" // "amp-api-edge.apps.apple.com push.apple.com inappcheck.itunes.apple.com app-measurement.com nexoncdn.co.kr nexon.com nexon.io "
+	PROXY := "amp-api-edge.apps.apple.com push.apple.com inappcheck.itunes.apple.com app-measurement.com nexoncdn.co.kr nexon.com nexon.io "
 	// Microsoft
 	{
-		PROXY += "windows.com windows.net office.com microsoft.com live.com "
-		PROXY += "contentsync.onenote.com hierarchyapi.onenote.com www.onenote.com "
 		PROXY += "bing.com "
-		PROXY += "microsoftonline.com office.net onenote.com " // 原来是direct
+		PROXY += "windows.com windows.net office.com microsoft.com live.com "
+		PROXY += "onenote.com contentsync.onenote.com hierarchyapi.onenote.com www.onenote.com "
+		PROXY += "microsoftonline.com office.net " // 原来是direct
+		PROXY += "sharepoint.com 1drv.com "
 	}
 	// Apple
 	{
@@ -41,7 +42,7 @@ func main() {
 	DIRECT := ""
 	// Microsoft
 	{
-		DIRECT += "sharepoint.com 1drv.com "
+		// DIRECT += ""
 	}
 	// Crusaders Quest
 	{
