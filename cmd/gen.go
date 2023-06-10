@@ -26,7 +26,6 @@ func main() {
 		PROXY += "windows.com windows.net office.com microsoft.com live.com "
 		PROXY += "onenote.com contentsync.onenote.com hierarchyapi.onenote.com www.onenote.com "
 		PROXY += "microsoftonline.com office.net " // 原来是direct
-		PROXY += "sharepoint.com 1drv.com "
 	}
 	// Apple
 	{
@@ -43,6 +42,7 @@ func main() {
 	// Microsoft
 	{
 		// DIRECT += ""
+		DIRECT += "sharepoint.com 1drv.com " // onedrive
 	}
 	// Crusaders Quest
 	{
