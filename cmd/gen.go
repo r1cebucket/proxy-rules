@@ -115,7 +115,7 @@ func SaveConfig(domainReject, domainProxy, domainDirect []string, MODE string) {
 
 		for _, domain := range domainReject[:len(domainReject)-1] {
 			rule = fmt.Sprintf("domain:%s\n", domain)
-			confProxy.Write([]byte(rule))
+			confReject.Write([]byte(rule))
 		}
 		for _, domain := range domainProxy[:len(domainProxy)-1] {
 			rule = fmt.Sprintf("domain:%s\n", domain)
@@ -152,7 +152,7 @@ func SaveConfig(domainReject, domainProxy, domainDirect []string, MODE string) {
 
 		for _, domain := range domainReject[:len(domainReject)-1] {
 			rule = fmt.Sprintf("  - '+.%s'\n", domain)
-			confProxy.Write([]byte(rule))
+			confReject.Write([]byte(rule))
 		}
 		for _, domain := range domainProxy[:len(domainProxy)-1] {
 			rule = fmt.Sprintf("  - '+.%s'\n", domain)
@@ -204,7 +204,7 @@ func SaveConfig(domainReject, domainProxy, domainDirect []string, MODE string) {
 
 		for _, domain := range domainReject[:len(domainReject)-1] {
 			rule = fmt.Sprintf("DOMAIN-SUFFIX,%s\n", domain)
-			confProxy.Write([]byte(rule))
+			confReject.Write([]byte(rule))
 		}
 		for _, domain := range domainProxy[:len(domainProxy)-1] {
 			rule = fmt.Sprintf("DOMAIN-SUFFIX,%s\n", domain)
