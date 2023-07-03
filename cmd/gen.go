@@ -17,7 +17,7 @@ func main() {
 	// TODO
 	//
 
-	var domainProxy, domainDirect []string
+	var domainProxy, domainDirect, domainReject []string
 
 	// PROXY
 	PROXY := "amp-api-edge.apps.apple.com push.apple.com inappcheck.itunes.apple.com nexoncdn.co.kr nexon.com nexon.io "
@@ -63,13 +63,14 @@ func main() {
 
 	domainProxy = strings.Split(PROXY, " ")
 	domainDirect = strings.Split(DIRECT, " ")
+	domainReject = strings.Split(REJECT, " ")
 
 	for _, MODE := range MODES {
-		SaveConfig(domainProxy, domainDirect, MODE)
+		SaveConfig(domainReject, domainProxy, domainDirect, MODE)
 	}
 }
 
-func SaveConfig(domainProxy, domainDirect []string, MODE string) {
+func SaveConfig(domainReject, domainProxy, domainDirect []string, MODE string) {
 	var rule string
 	switch MODE {
 	case "quan x":
@@ -80,6 +81,10 @@ func SaveConfig(domainProxy, domainDirect []string, MODE string) {
 		}
 		defer conf.Close()
 
+		for _, domain := range domainReject[:len(domainReject)-1] {
+			rule = fmt.Sprintf("HOST-SUFFIX,%s,REJECT\n", domain)
+			conf.Write([]byte(rule))
+		}
 		for _, domain := range domainProxy[:len(domainProxy)-1] {
 			rule = fmt.Sprintf("HOST-SUFFIX,%s,PROXY\n", domain)
 			conf.Write([]byte(rule))
@@ -89,6 +94,11 @@ func SaveConfig(domainProxy, domainDirect []string, MODE string) {
 			conf.Write([]byte(rule))
 		}
 	case "matsuri":
+		confReject, err := os.Create("./rules/matsuri_reject.conf")
+		if err != nil {
+			fmt.Println(err.Error())
+			return
+		}
 		confProxy, err := os.Create("./rules/matsuri_proxy.conf")
 		if err != nil {
 			fmt.Println(err.Error())
@@ -99,9 +109,14 @@ func SaveConfig(domainProxy, domainDirect []string, MODE string) {
 			fmt.Println(err.Error())
 			return
 		}
+		defer confReject.Close()
 		defer confProxy.Close()
 		defer confDirect.Close()
 
+		for _, domain := range domainReject[:len(domainReject)-1] {
+			rule = fmt.Sprintf("domain:%s\n", domain)
+			confProxy.Write([]byte(rule))
+		}
 		for _, domain := range domainProxy[:len(domainProxy)-1] {
 			rule = fmt.Sprintf("domain:%s\n", domain)
 			confProxy.Write([]byte(rule))
@@ -112,6 +127,11 @@ func SaveConfig(domainProxy, domainDirect []string, MODE string) {
 			confDirect.Write([]byte(rule))
 		}
 	case "clash":
+		confReject, err := os.Create("./rules/clash_reject.conf")
+		if err != nil {
+			fmt.Println(err.Error())
+			return
+		}
 		confProxy, err := os.Create("./rules/clash_proxy.conf")
 		if err != nil {
 			fmt.Println(err.Error())
@@ -122,12 +142,18 @@ func SaveConfig(domainProxy, domainDirect []string, MODE string) {
 			fmt.Println(err.Error())
 			return
 		}
+		defer confReject.Close()
 		defer confProxy.Close()
 		defer confDirect.Close()
 
+		confReject.Write([]byte("payload:\n"))
 		confProxy.Write([]byte("payload:\n"))
 		confDirect.Write([]byte("payload:\n"))
 
+		for _, domain := range domainReject[:len(domainReject)-1] {
+			rule = fmt.Sprintf("  - '+.%s'\n", domain)
+			confProxy.Write([]byte(rule))
+		}
 		for _, domain := range domainProxy[:len(domainProxy)-1] {
 			rule = fmt.Sprintf("  - '+.%s'\n", domain)
 			confProxy.Write([]byte(rule))
@@ -144,6 +170,10 @@ func SaveConfig(domainProxy, domainDirect []string, MODE string) {
 		}
 		defer conf.Close()
 
+		for _, domain := range domainReject[:len(domainReject)-1] {
+			rule = fmt.Sprintf("  - DOMAIN-SUFFIX,%s,REJECT\n", domain)
+			conf.Write([]byte(rule))
+		}
 		for _, domain := range domainProxy[:len(domainProxy)-1] {
 			rule = fmt.Sprintf("  - DOMAIN-SUFFIX,%s,PROXY\n", domain)
 			conf.Write([]byte(rule))
@@ -153,7 +183,11 @@ func SaveConfig(domainProxy, domainDirect []string, MODE string) {
 			conf.Write([]byte(rule))
 		}
 	case "surge":
-		// DOMAIN-SUFFIX,apple.com
+		confReject, err := os.Create("./rules/surge_reject.conf")
+		if err != nil {
+			fmt.Println(err.Error())
+			return
+		}
 		confProxy, err := os.Create("./rules/surge_proxy.conf")
 		if err != nil {
 			fmt.Println(err.Error())
@@ -164,9 +198,14 @@ func SaveConfig(domainProxy, domainDirect []string, MODE string) {
 			fmt.Println(err.Error())
 			return
 		}
+		defer confReject.Close()
 		defer confProxy.Close()
 		defer confDirect.Close()
 
+		for _, domain := range domainReject[:len(domainReject)-1] {
+			rule = fmt.Sprintf("DOMAIN-SUFFIX,%s\n", domain)
+			confProxy.Write([]byte(rule))
+		}
 		for _, domain := range domainProxy[:len(domainProxy)-1] {
 			rule = fmt.Sprintf("DOMAIN-SUFFIX,%s\n", domain)
 			confProxy.Write([]byte(rule))

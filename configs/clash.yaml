@@ -1,3 +1,4 @@
+---
 #---------------------------------------------------#
 ## 配置文件需要放置在 $HOME/.config/clash/*.yaml
 
@@ -17,7 +18,7 @@ log-level: info
 
 proxies:
 
-proxy-groups:  
+proxy-groups:
   - name: PROXY
     type: select
     proxies:
@@ -70,11 +71,16 @@ proxy-providers:
       interval: 3600
       # lazy: true
       url: http://www.gstatic.com/generate_204
-    
 
   # TODO add subscription link here
 
 rule-providers:
+  reject:
+    type: http
+    behavior: domain
+    url: https://raw.githubusercontent.com/r1cebucket/vpn/main/rules/clash_reject.conf
+    path: ./profiles/rules/reject.yaml
+    interval: 172800
   proxy:
     type: http
     behavior: domain
@@ -88,9 +94,8 @@ rule-providers:
     path: ./profiles/rules/direct.yaml
     interval: 172800
 
-
 rules:
-
+  - RULE-SET,reject,REJECT
   - RULE-SET,proxy,PROXY
   - RULE-SET,direct,DIRECT
 
