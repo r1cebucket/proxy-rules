@@ -11,6 +11,7 @@ func main() {
 		"clash",
 		"quan x",
 		"matsuri",
+		"surge",
 	}
 
 	// TODO
@@ -19,7 +20,7 @@ func main() {
 	var domainProxy, domainDirect []string
 
 	// PROXY
-	PROXY := "amp-api-edge.apps.apple.com push.apple.com inappcheck.itunes.apple.com app-measurement.com nexoncdn.co.kr nexon.com nexon.io "
+	PROXY := "amp-api-edge.apps.apple.com push.apple.com inappcheck.itunes.apple.com nexoncdn.co.kr nexon.com nexon.io "
 	// Microsoft
 	{
 		PROXY += "bing.com "
@@ -52,6 +53,12 @@ func main() {
 		DIRECT += "toastoven.net "
 		// DIRECT += "cru.cdn.toastoven.net adam.gslb.toastoven.net api-iaptacc.gslb.toastoven.net "
 		DIRECT += "unity3d.com "
+	}
+
+	// REJECT
+	REJECT := ""
+	{
+		REJECT += "app-measurement.com "
 	}
 
 	domainProxy = strings.Split(PROXY, " ")
@@ -144,6 +151,29 @@ func SaveConfig(domainProxy, domainDirect []string, MODE string) {
 		for _, domain := range domainDirect[:len(domainDirect)-1] {
 			rule = fmt.Sprintf("  - DOMAIN-SUFFIX,%s,DIRECT\n", domain)
 			conf.Write([]byte(rule))
+		}
+	case "surge":
+		// DOMAIN-SUFFIX,apple.com
+		confProxy, err := os.Create("./rules/surge_proxy.conf")
+		if err != nil {
+			fmt.Println(err.Error())
+			return
+		}
+		confDirect, err := os.Create("./rules/surge_direct.conf")
+		if err != nil {
+			fmt.Println(err.Error())
+			return
+		}
+		defer confProxy.Close()
+		defer confDirect.Close()
+
+		for _, domain := range domainProxy[:len(domainProxy)-1] {
+			rule = fmt.Sprintf("DOMAIN-SUFFIX,%s\n", domain)
+			confProxy.Write([]byte(rule))
+		}
+		for _, domain := range domainDirect[:len(domainDirect)-1] {
+			rule = fmt.Sprintf("DOMAIN-SUFFIX,%s\n", domain)
+			confDirect.Write([]byte(rule))
 		}
 	default:
 		fmt.Println("no such mode:", MODE)
