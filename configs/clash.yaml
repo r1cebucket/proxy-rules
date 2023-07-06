@@ -53,7 +53,7 @@ proxy-providers:
       url: http://www.gstatic.com/generate_204
   XFTLD:
     type: http
-    url: https://sub.xeton.dev/sub?target=clash&url=https%3A%2F%2Fdy.xftld.xyz%2Fapi%2Fv1%2Fclient%2Fsubscribe%3Ftoken%3D52be752db95308d1669f3e271619d21e&insert=false&config=https%3A%2F%2Fraw.githubusercontent.com%2FACL4SSR%2FACL4SSR%2Fmaster%2FClash%2Fconfig%2FACL4SSR_Online.ini
+    url: https://sub.xeton.dev/sub?target=clash&url=https%3A%2F%2Fdy.xftld.xyz%2Fapi%2Fv1%2Fclient%2Fsubscribe%3Ftoken%ca8670989155c7ab1b043a9243aae194&insert=false&config=https%3A%2F%2Fraw.githubusercontent.com%2FACL4SSR%2FACL4SSR%2Fmaster%2FClash%2Fconfig%2FACL4SSR_Online.ini
     interval: 172800
     path: ./profiles/subscriptions/XFTLD.yaml
     health-check:
