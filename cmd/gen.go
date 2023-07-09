@@ -27,6 +27,7 @@ func main() {
 		PROXY += "windows.com windows.net office.com microsoft.com live.com "
 		PROXY += "onenote.com contentsync.onenote.com hierarchyapi.onenote.com www.onenote.com "
 		PROXY += "microsoftonline.com office.net " // 原来是direct
+		PROXY += "sharepoint.com 1drv.com "        // onedrive
 	}
 	// Apple
 	{
@@ -40,10 +41,13 @@ func main() {
 
 	// DIRECT
 	DIRECT := ""
+	// cn
+	{
+		DIRECT += "baidu.com qq.com zhihu.com dcarstatic.com byteimg.com "
+	}
 	// Microsoft
 	{
 		// DIRECT += ""
-		DIRECT += "sharepoint.com 1drv.com " // onedrive
 	}
 	// Crusaders Quest
 	{
@@ -57,8 +61,14 @@ func main() {
 
 	// REJECT
 	REJECT := ""
+	//
 	{
 		REJECT += "app-measurement.com "
+
+	}
+	// ad
+	{
+		REJECT += "amazon-adsystem.com doubleclick.net rubiconproject.com adservice.google.com"
 	}
 
 	domainProxy = strings.Split(PROXY, " ")
