@@ -43,7 +43,7 @@ func main() {
 	DIRECT := ""
 	// cn
 	{
-		DIRECT += "baidu.com qq.com zhihu.com dcarstatic.com byteimg.com "
+		DIRECT += "baidu.com qq.com zhihu.com dcarstatic.com byteimg.com 163.com "
 	}
 	// Microsoft
 	{
@@ -63,7 +63,7 @@ func main() {
 	REJECT := ""
 	//
 	{
-		REJECT += "app-measurement.com "
+		REJECT += "app-measurement.com appsflyer.com "
 
 	}
 	// ad
