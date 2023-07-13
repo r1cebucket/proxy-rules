@@ -45,6 +45,10 @@ func main() {
 	{
 		DIRECT += "baidu.com qq.com zhihu.com dcarstatic.com byteimg.com 163.com "
 	}
+	// alist proxy
+	{
+		DIRECT += "alist-proxy.r1cebucket.top "
+	}
 	// Microsoft
 	{
 		// DIRECT += ""
@@ -68,7 +72,7 @@ func main() {
 	}
 	// ad
 	{
-		REJECT += "amazon-adsystem.com doubleclick.net rubiconproject.com adservice.google.com"
+		REJECT += "amazon-adsystem.com doubleclick.net rubiconproject.com adservice.google.com ads-api.twitter.com "
 	}
 
 	domainProxy = strings.Split(PROXY, " ")
