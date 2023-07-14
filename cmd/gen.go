@@ -25,7 +25,7 @@ func main() {
 	{
 		PROXY += "bing.com "
 		PROXY += "windows.com windows.net office.com microsoft.com live.com "
-		PROXY += "onenote.com contentsync.onenote.com hierarchyapi.onenote.com www.onenote.com "
+		PROXY += "onenote.com contentsync.onenote.com hierarchyapi.onenote.com "
 		PROXY += "microsoftonline.com office.net " // 原来是direct
 		PROXY += "sharepoint.com 1drv.com "        // onedrive
 		PROXY += "googleapis.cn "
@@ -46,8 +46,9 @@ func main() {
 	{
 		DIRECT += "baidu.com qq.com zhihu.com dcarstatic.com byteimg.com 163.com "
 	}
-	// alist proxy
+	// alist
 	{
+		DIRECT += "alist.r1cebucket.top "
 		DIRECT += "alist-proxy.r1cebucket.top "
 	}
 	// Microsoft
