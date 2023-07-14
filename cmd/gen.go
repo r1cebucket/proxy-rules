@@ -28,6 +28,7 @@ func main() {
 		PROXY += "onenote.com contentsync.onenote.com hierarchyapi.onenote.com www.onenote.com "
 		PROXY += "microsoftonline.com office.net " // 原来是direct
 		PROXY += "sharepoint.com 1drv.com "        // onedrive
+		PROXY += "googleapis.cn "
 	}
 	// Apple
 	{
@@ -72,7 +73,7 @@ func main() {
 	}
 	// ad
 	{
-		REJECT += "amazon-adsystem.com doubleclick.net rubiconproject.com adservice.google.com ads-api.twitter.com "
+		REJECT += "amazon-adsystem.com doubleclick.net rubiconproject.com adservice.google.com "
 	}
 
 	domainProxy = strings.Split(PROXY, " ")
