@@ -21,6 +21,10 @@ func main() {
 
 	// PROXY
 	PROXY := "amp-api-edge.apps.apple.com push.apple.com inappcheck.itunes.apple.com nexoncdn.co.kr nexon.com nexon.io "
+	// Google
+	{
+		PROXY += "googleapis.com "
+	}
 	// Microsoft
 	{
 		PROXY += "bing.com "
@@ -67,9 +71,9 @@ func main() {
 
 	// REJECT
 	REJECT := ""
-	//
+	// analytic
 	{
-		REJECT += "app-measurement.com appsflyer.com "
+		REJECT += "app-measurement.com appsflyer.com google-analytics.com "
 
 	}
 	// ad
