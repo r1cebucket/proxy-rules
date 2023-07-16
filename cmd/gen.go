@@ -80,6 +80,10 @@ func main() {
 	{
 		REJECT += "amazon-adsystem.com doubleclick.net rubiconproject.com adservice.google.com "
 	}
+	// Baidu
+	{
+		REJECT += "tieba-ares.cdn.bcebos.com "
+	}
 
 	domainProxy = strings.Split(PROXY, " ")
 	domainDirect = strings.Split(DIRECT, " ")
