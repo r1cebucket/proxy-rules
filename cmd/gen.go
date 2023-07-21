@@ -48,7 +48,7 @@ func main() {
 	DIRECT := ""
 	// cn
 	{
-		DIRECT += "baidu.com qq.com zhihu.com dcarstatic.com byteimg.com 163.com "
+		DIRECT += "baidu.com qq.com zhihu.com dcarstatic.com byteimg.com 163.com csdn.net qcloudimg.com tencent.com "
 	}
 	// alist
 	{
@@ -73,12 +73,12 @@ func main() {
 	REJECT := ""
 	// analytic
 	{
-		REJECT += "app-measurement.com appsflyer.com google-analytics.com "
+		REJECT += "app-measurement.com appsflyer.com google-analytics.com openinstall.io "
 
 	}
 	// ad
 	{
-		REJECT += "amazon-adsystem.com doubleclick.net rubiconproject.com adservice.google.com "
+		REJECT += "amazon-adsystem.com doubleclick.net rubiconproject.com adservice.google.com wwads.cn "
 	}
 	// Baidu
 	{
