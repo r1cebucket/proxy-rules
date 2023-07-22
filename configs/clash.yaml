@@ -104,7 +104,7 @@ proxy-providers:
       url: http://www.gstatic.com/generate_204
   XFTLD:
     type: http
-    url: https://sub.id9.cc/sub?target=clash&url=https%3A%2F%2Fsub.xfss.link%2Fapi%2Fv1%2Fclient%2Fsubscribe%3Ftoken%3Dca8670989155c7ab1b043a9243aae194&insert=false&config=https%3A%2F%2Fraw.githubusercontent.com%2FACL4SSR%2FACL4SSR%2Fmaster%2FClash%2Fconfig%2FACL4SSR_Online.ini
+    url: https://sub.xeton.dev/sub?target=clash&new_name=true&url=https%3A%2F%2Fsub.xfss.link%2Fapi%2Fv1%2Fclient%2Fsubscribe%3Ftoken%3Dca8670989155c7ab1b043a9243aae194&insert=false&config=https%3A%2F%2Fraw.githubusercontent.com%2FACL4SSR%2FACL4SSR%2Fmaster%2FClash%2Fconfig%2FACL4SSR_Online.ini
     interval: 172800
     path: ./profiles/subscriptions/XFTLD.yaml
     health-check:
@@ -114,7 +114,7 @@ proxy-providers:
       url: http://www.gstatic.com/generate_204
   NanoPort:
     type: http
-    url: https://sub.id9.cc/sub?target=clash&url=https%3A%2F%2Fnanoport.azurefd.net%2Fapi%2Fv1%2Fclient%2Fsubscribe%3Ftoken%3D5d98ac512e48006d875ae89253762089&insert=false&config=https%3A%2F%2Fraw.githubusercontent.com%2FACL4SSR%2FACL4SSR%2Fmaster%2FClash%2Fconfig%2FACL4SSR_Online.ini
+    url: https://sub.xeton.dev/sub?target=clash&new_name=true&url=https%3A%2F%2Fnanoport.azurefd.net%2Fapi%2Fv1%2Fclient%2Fsubscribe%3Ftoken%3D5d98ac512e48006d875ae89253762089&insert=false&config=https%3A%2F%2Fraw.githubusercontent.com%2FACL4SSR%2FACL4SSR%2Fmaster%2FClash%2Fconfig%2FACL4SSR_Online.ini
     interval: 172800
     path: ./profiles/subscriptions/NanoPort.yaml
     health-check:
