@@ -48,7 +48,7 @@ func main() {
 	DIRECT := ""
 	// cn
 	{
-		DIRECT += "baidu.com qq.com zhihu.com dcarstatic.com byteimg.com 163.com csdn.net qcloudimg.com tencent.com "
+		DIRECT += "baidu.com qq.com zhihu.com dcarstatic.com byteimg.com 163.com csdn.net qcloudimg.com tencent.com bilibili.com "
 	}
 	// alist
 	{
