@@ -129,19 +129,19 @@ rule-providers:
   reject:
     type: http
     behavior: domain
-    url: https://raw.githubusercontent.com/r1cebucket/vpn/main/rules/clash_reject.conf
+    url: https://ghproxy.com/https://raw.githubusercontent.com/r1cebucket/vpn/main/rules/clash_reject.conf
     path: ./profiles/rules/reject.yaml
     interval: 172800
   proxy:
     type: http
     behavior: domain
-    url: https://raw.githubusercontent.com/r1cebucket/vpn/main/rules/clash_proxy.conf
+    url: https://ghproxy.com/https://raw.githubusercontent.com/r1cebucket/vpn/main/rules/clash_proxy.conf
     path: ./profiles/rules/proxy.yaml
     interval: 172800
   direct:
     type: http
     behavior: domain
-    url: https://raw.githubusercontent.com/r1cebucket/vpn/main/rules/clash_direct.conf
+    url: https://ghproxy.com/https://raw.githubusercontent.com/r1cebucket/vpn/main/rules/clash_direct.conf
     path: ./profiles/rules/direct.yaml
     interval: 172800
 
