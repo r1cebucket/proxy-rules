@@ -43,6 +43,9 @@ func main() {
 		PROXY += "cq.hangame.com "
 		PROXY += "nhn.com gslb-gamebase.nhncloudservice.com toast.com "
 	}
+	{
+		PROXY += "leetcode.cn "
+	}
 
 	// DIRECT
 	DIRECT := ""
