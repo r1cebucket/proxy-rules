@@ -1,5 +1,5 @@
 update:
-	go run ./cmd
+	go run ./cmd/gen.go
 	git add .
 	git commit -m update
 	git push

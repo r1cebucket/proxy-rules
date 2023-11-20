@@ -14,9 +14,6 @@ func main() {
 		"surge",
 	}
 
-	// TODO
-	//
-
 	var domainProxy, domainDirect, domainReject []string
 
 	// PROXY
@@ -39,9 +36,13 @@ func main() {
 		PROXY += "app.adjust.com "
 	}
 	// Crusaders Quest
+	// {
+	// 	PROXY += "cq.hangame.com "
+	// 	PROXY += "nhn.com gslb-gamebase.nhncloudservice.com toast.com "
+	// }
+	// LinkedIn
 	{
-		PROXY += "cq.hangame.com "
-		PROXY += "nhn.com gslb-gamebase.nhncloudservice.com toast.com "
+		PROXY += "linkedin.com "
 	}
 	{
 		PROXY += "leetcode.cn "
@@ -63,14 +64,14 @@ func main() {
 		// DIRECT += ""
 	}
 	// Crusaders Quest
-	{
-		DIRECT += "nhnst.com "
-		DIRECT += "cq-pvp.hangame.com " // 匹配队友，对手（需要直连）
-		DIRECT += "cq-cha.hangame.com " // 进入匹配服务器（需要直连）
-		DIRECT += "toastoven.net "
-		// DIRECT += "cru.cdn.toastoven.net adam.gslb.toastoven.net api-iaptacc.gslb.toastoven.net "
-		DIRECT += "unity3d.com "
-	}
+	// {
+	// 	DIRECT += "nhnst.com "
+	// 	DIRECT += "cq-pvp.hangame.com " // 匹配队友，对手（需要直连）
+	// 	DIRECT += "cq-cha.hangame.com " // 进入匹配服务器（需要直连）
+	// 	DIRECT += "toastoven.net "
+	// 	// DIRECT += "cru.cdn.toastoven.net adam.gslb.toastoven.net api-iaptacc.gslb.toastoven.net "
+	// 	DIRECT += "unity3d.com "
+	// }
 
 	// REJECT
 	REJECT := ""
