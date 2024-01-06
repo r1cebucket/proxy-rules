@@ -72,6 +72,10 @@ func main() {
 	// 	// DIRECT += "cru.cdn.toastoven.net adam.gslb.toastoven.net api-iaptacc.gslb.toastoven.net "
 	// 	DIRECT += "unity3d.com "
 	// }
+	// Steam
+	{
+		DIRECT += "akamaihd.net "
+	}
 
 	// REJECT
 	REJECT := ""
