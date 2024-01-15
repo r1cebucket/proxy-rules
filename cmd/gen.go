@@ -61,6 +61,10 @@ func main() {
 
 	// PROXY
 	PROXY := "amp-api-edge.apps.apple.com push.apple.com inappcheck.itunes.apple.com nexoncdn.co.kr nexon.com nexon.io "
+	// Common
+	{
+		PROXY += "aliyuncs.com "
+	}
 	// Google
 	{
 		PROXY += "googleapis.com "
@@ -87,8 +91,13 @@ func main() {
 	{
 		PROXY += "linkedin.com "
 	}
+	// Leetcode
 	{
 		PROXY += "leetcode.cn "
+	}
+	// WeTab
+	{
+		PROXY += "wetab.link "
 	}
 
 	// DIRECT
@@ -298,7 +307,6 @@ func SaveConfig(domainReject, domainProxy, domainDirect []string, MODE string) {
 		defer conf.Close()
 
 		conf.Write([]byte(SHADOWROCKET_PREFIX))
-
 
 		for _, domain := range domainReject[:len(domainReject)-1] {
 			rule = fmt.Sprintf("DOMAIN-SUFFIX,%s,REJECT\n", domain)
