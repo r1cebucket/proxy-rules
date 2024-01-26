@@ -61,10 +61,6 @@ func main() {
 
 	// PROXY
 	PROXY := "amp-api-edge.apps.apple.com push.apple.com inappcheck.itunes.apple.com nexoncdn.co.kr nexon.com nexon.io "
-	// Common
-	{
-		PROXY += "aliyuncs.com "
-	}
 	// Google
 	{
 		PROXY += "googleapis.com "
@@ -95,16 +91,16 @@ func main() {
 	{
 		PROXY += "leetcode.cn "
 	}
-	// WeTab
-	{
-		PROXY += "wetab.link "
-	}
 
 	// DIRECT
 	DIRECT := ""
 	// cn
 	{
 		DIRECT += "baidu.com qq.com zhihu.com dcarstatic.com byteimg.com 163.com csdn.net qcloudimg.com tencent.com bilibili.com "
+	}
+	// Common
+	{
+		DIRECT += "aliyuncs.com "
 	}
 	// alist
 	{
@@ -127,6 +123,10 @@ func main() {
 	// Steam
 	{
 		DIRECT += "akamaihd.net "
+	}
+	// WeTab
+	{
+		DIRECT += "wetab.link "
 	}
 
 	// REJECT
