@@ -177,6 +177,26 @@ func SaveConfig(domainReject, domainProxy, domainDirect []string, MODE string) {
 			rule = fmt.Sprintf("HOST-SUFFIX,%s,DIRECT\n", domain)
 			conf.Write([]byte(rule))
 		}
+
+		confFallback, err := os.Create("./rules/quan_x_fallback.conf")
+		if err != nil {
+			fmt.Println(err.Error())
+			return
+		}
+		defer confFallback.Close()
+
+		for _, domain := range domainReject[:len(domainReject)-1] {
+			rule = fmt.Sprintf("HOST-SUFFIX,%s,REJECT\n", domain)
+			confFallback.Write([]byte(rule))
+		}
+		for _, domain := range domainProxy[:len(domainProxy)-1] {
+			rule = fmt.Sprintf("HOST-SUFFIX,%s,FALLBACK\n", domain)
+			confFallback.Write([]byte(rule))
+		}
+		for _, domain := range domainDirect[:len(domainDirect)-1] {
+			rule = fmt.Sprintf("HOST-SUFFIX,%s,DIRECT\n", domain)
+			confFallback.Write([]byte(rule))
+		}
 	case "matsuri":
 		confReject, err := os.Create("./rules/matsuri_reject.conf")
 		if err != nil {
