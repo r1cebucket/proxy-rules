@@ -188,7 +188,7 @@ func SaveConfig(domainReject, domainProxy, domainDirect []string, MODE string) {
 			confFallback_HK_JP_SG.Write([]byte(rule))
 		}
 		for _, domain := range domainProxy[:len(domainProxy)-1] {
-			rule = fmt.Sprintf("HOST-SUFFIX,%s,FALLBACK\n", domain)
+			rule = fmt.Sprintf("HOST-SUFFIX,%s,FALLBACK-HK&JP&SG\n", domain)
 			confFallback_HK_JP_SG.Write([]byte(rule))
 		}
 		for _, domain := range domainDirect[:len(domainDirect)-1] {
@@ -207,7 +207,7 @@ func SaveConfig(domainReject, domainProxy, domainDirect []string, MODE string) {
 			confFallback_JP_SG.Write([]byte(rule))
 		}
 		for _, domain := range domainProxy[:len(domainProxy)-1] {
-			rule = fmt.Sprintf("HOST-SUFFIX,%s,FALLBACK\n", domain)
+			rule = fmt.Sprintf("HOST-SUFFIX,%s,FALLBACK-JP&SG\n", domain)
 			confFallback_JP_SG.Write([]byte(rule))
 		}
 		for _, domain := range domainDirect[:len(domainDirect)-1] {
