@@ -164,7 +164,6 @@ func SaveConfig(domainReject, domainProxy, domainDirect []string, MODE string) {
 			return
 		}
 		defer conf.Close()
-
 		for _, domain := range domainReject[:len(domainReject)-1] {
 			rule = fmt.Sprintf("HOST-SUFFIX,%s,REJECT\n", domain)
 			conf.Write([]byte(rule))
@@ -178,24 +177,42 @@ func SaveConfig(domainReject, domainProxy, domainDirect []string, MODE string) {
 			conf.Write([]byte(rule))
 		}
 
-		confFallback, err := os.Create("./rules/quan_x_fallback.conf")
+		confFallback_HK_JP_SG, err := os.Create("./rules/quan_x_fallback_hk_jp_sg.conf")
 		if err != nil {
 			fmt.Println(err.Error())
 			return
 		}
-		defer confFallback.Close()
-
+		defer confFallback_HK_JP_SG.Close()
 		for _, domain := range domainReject[:len(domainReject)-1] {
 			rule = fmt.Sprintf("HOST-SUFFIX,%s,REJECT\n", domain)
-			confFallback.Write([]byte(rule))
+			confFallback_HK_JP_SG.Write([]byte(rule))
 		}
 		for _, domain := range domainProxy[:len(domainProxy)-1] {
 			rule = fmt.Sprintf("HOST-SUFFIX,%s,FALLBACK\n", domain)
-			confFallback.Write([]byte(rule))
+			confFallback_HK_JP_SG.Write([]byte(rule))
 		}
 		for _, domain := range domainDirect[:len(domainDirect)-1] {
 			rule = fmt.Sprintf("HOST-SUFFIX,%s,DIRECT\n", domain)
-			confFallback.Write([]byte(rule))
+			confFallback_HK_JP_SG.Write([]byte(rule))
+		}
+		
+		confFallback_JP_SG, err := os.Create("./rules/quan_x_fallback_jp_sg.conf")
+		if err != nil {
+			fmt.Println(err.Error())
+			return
+		}
+		defer confFallback_JP_SG.Close()
+		for _, domain := range domainReject[:len(domainReject)-1] {
+			rule = fmt.Sprintf("HOST-SUFFIX,%s,REJECT\n", domain)
+			confFallback_JP_SG.Write([]byte(rule))
+		}
+		for _, domain := range domainProxy[:len(domainProxy)-1] {
+			rule = fmt.Sprintf("HOST-SUFFIX,%s,FALLBACK\n", domain)
+			confFallback_JP_SG.Write([]byte(rule))
+		}
+		for _, domain := range domainDirect[:len(domainDirect)-1] {
+			rule = fmt.Sprintf("HOST-SUFFIX,%s,DIRECT\n", domain)
+			confFallback_JP_SG.Write([]byte(rule))
 		}
 	case "matsuri":
 		confReject, err := os.Create("./rules/matsuri_reject.conf")
