@@ -107,6 +107,10 @@ func main() {
 		DIRECT += "alist.r1cebucket.top "
 		DIRECT += "alist-proxy.r1cebucket.top "
 	}
+	// hosts
+	{
+		DIRECT += "megasrv.de "
+	}
 	// Microsoft
 	{
 		// DIRECT += ""
