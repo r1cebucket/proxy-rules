@@ -110,6 +110,7 @@ func main() {
 	// hosts
 	{
 		DIRECT += "megasrv.de "
+		DIRECT += "432104.xyz "
 	}
 	// Microsoft
 	{
