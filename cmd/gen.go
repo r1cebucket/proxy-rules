@@ -5,7 +5,6 @@ import (
 	"fmt"
 	"os"
 	"strings"
-	"time"
 )
 
 const (
@@ -166,24 +165,23 @@ func SaveConfig(domainReject, domainProxy, domainDirect []string, MODE string) {
 			Version int64                  `json:"version"`
 		}
 
-		now := time.Now().Unix()
 		rulesReject := rulesConf{
 			Rules: map[string]interface{}{
 				"domain_suffix": domainReject[:len(domainReject)-1],
 			},
-			Version: now,
+			Version: 2,
 		}
 		rulesProxy := rulesConf{
 			Rules: map[string]interface{}{
 				"domain_suffix": domainProxy[:len(domainProxy)-1],
 			},
-			Version: now,
+			Version: 2,
 		}
 		rulesDirect := rulesConf{
 			Rules: map[string]interface{}{
 				"domain_suffix": domainDirect[:len(domainDirect)-1],
 			},
-			Version: now,
+			Version: 2,
 		}
 
 		confReject, err := os.Create("./rules/sing-box_reject.conf")
