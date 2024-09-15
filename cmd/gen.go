@@ -169,19 +169,19 @@ func SaveConfig(domainReject, domainProxy, domainDirect []string, MODE string) {
 			Rules: map[string]interface{}{
 				"domain_suffix": domainReject[:len(domainReject)-1],
 			},
-			Version: 2,
+			Version: 1,
 		}
 		rulesProxy := rulesConf{
 			Rules: map[string]interface{}{
 				"domain_suffix": domainProxy[:len(domainProxy)-1],
 			},
-			Version: 2,
+			Version: 1,
 		}
 		rulesDirect := rulesConf{
 			Rules: map[string]interface{}{
 				"domain_suffix": domainDirect[:len(domainDirect)-1],
 			},
-			Version: 2,
+			Version: 1,
 		}
 
 		confReject, err := os.Create("./rules/sing-box_reject.conf")
