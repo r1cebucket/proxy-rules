@@ -161,25 +161,25 @@ func SaveConfig(domainReject, domainProxy, domainDirect []string, MODE string) {
 	switch MODE {
 	case "sing-box":
 		type rulesConf struct {
-			Rules   map[string]interface{} `json:"rules"`
-			Version int64                  `json:"version"`
+			Rules   []map[string]interface{} `json:"rules"`
+			Version int64                    `json:"version"`
 		}
 
 		rulesReject := rulesConf{
-			Rules: map[string]interface{}{
-				"domain_suffix": domainReject[:len(domainReject)-1],
+			Rules: []map[string]interface{}{
+				{"domain_suffix": domainReject[:len(domainReject)-1]},
 			},
 			Version: 1,
 		}
 		rulesProxy := rulesConf{
-			Rules: map[string]interface{}{
-				"domain_suffix": domainProxy[:len(domainProxy)-1],
+			Rules: []map[string]interface{}{
+				{"domain_suffix": domainProxy[:len(domainProxy)-1]},
 			},
 			Version: 1,
 		}
 		rulesDirect := rulesConf{
-			Rules: map[string]interface{}{
-				"domain_suffix": domainDirect[:len(domainDirect)-1],
+			Rules: []map[string]interface{}{
+				{"domain_suffix": domainDirect[:len(domainDirect)-1]},
 			},
 			Version: 1,
 		}
