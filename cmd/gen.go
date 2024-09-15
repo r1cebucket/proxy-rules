@@ -1,9 +1,11 @@
 package main
 
 import (
+	"encoding/json"
 	"fmt"
 	"os"
 	"strings"
+	"time"
 )
 
 const (
@@ -50,6 +52,7 @@ localhost = 127.0.0.1
 
 func main() {
 	MODES := []string{
+		"sing-box",
 		"clash",
 		"quan x",
 		"matsuri",
@@ -101,11 +104,6 @@ func main() {
 	// Common
 	{
 		DIRECT += "aliyuncs.com "
-	}
-	// alist
-	{
-		DIRECT += "alist.r1cebucket.top "
-		DIRECT += "alist-proxy.r1cebucket.top "
 	}
 	// hosts
 	{
@@ -162,6 +160,59 @@ func main() {
 func SaveConfig(domainReject, domainProxy, domainDirect []string, MODE string) {
 	var rule string
 	switch MODE {
+	case "sing-box":
+		type rulesConf struct {
+			Rules   map[string]interface{} `json:"rules"`
+			Version int64                  `json:"version"`
+		}
+
+		now := time.Now().Unix()
+		rulesReject := rulesConf{
+			Rules: map[string]interface{}{
+				"domain_suffix": domainReject[:len(domainReject)-1],
+			},
+			Version: now,
+		}
+		rulesProxy := rulesConf{
+			Rules: map[string]interface{}{
+				"domain_suffix": domainProxy[:len(domainProxy)-1],
+			},
+			Version: now,
+		}
+		rulesDirect := rulesConf{
+			Rules: map[string]interface{}{
+				"domain_suffix": domainDirect[:len(domainDirect)-1],
+			},
+			Version: now,
+		}
+
+		confReject, err := os.Create("./rules/sing-box_reject.conf")
+		if err != nil {
+			fmt.Println(err.Error())
+			return
+		}
+		confProxy, err := os.Create("./rules/sing-box_proxy.conf")
+		if err != nil {
+			fmt.Println(err.Error())
+			return
+		}
+		confDirect, err := os.Create("./rules/sing-box_direct.conf")
+		if err != nil {
+			fmt.Println(err.Error())
+			return
+		}
+
+		dataReject, _ := json.Marshal(rulesReject)
+		dataProxy, _ := json.Marshal(rulesProxy)
+		dataDirect, _ := json.Marshal(rulesDirect)
+
+		confReject.Write(dataReject)
+		confProxy.Write(dataProxy)
+		confDirect.Write(dataDirect)
+
+		defer confReject.Close()
+		defer confProxy.Close()
+		defer confDirect.Close()
 	case "quan x":
 		conf, err := os.Create("./rules/quan_x.conf")
 		if err != nil {
@@ -200,7 +251,7 @@ func SaveConfig(domainReject, domainProxy, domainDirect []string, MODE string) {
 			rule = fmt.Sprintf("HOST-SUFFIX,%s,DIRECT\n", domain)
 			confFallback_HK_JP_SG.Write([]byte(rule))
 		}
-		
+
 		confFallback_JP_SG, err := os.Create("./rules/quan_x_fallback_jp_sg.conf")
 		if err != nil {
 			fmt.Println(err.Error())
