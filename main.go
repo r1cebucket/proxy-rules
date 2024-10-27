@@ -130,6 +130,10 @@ func main() {
 	{
 		DIRECT += "wetab.link "
 	}
+	// Talkatone
+	{
+		DIRECT += "mobilefuse.com "
+	}
 
 	// REJECT
 	REJECT := ""
