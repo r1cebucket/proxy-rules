@@ -134,6 +134,10 @@ func main() {
 	{
 		DIRECT += "mobilefuse.com "
 	}
+	// Other
+	{
+		DIRECT += "nodeseek.com "
+	}
 
 	// REJECT
 	REJECT := ""
