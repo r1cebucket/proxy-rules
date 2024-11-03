@@ -51,6 +51,7 @@ func main() {
 
 func parseInputFlags(ctx context.Context) {
 	var (
+		modesStr     string
 		modesAllowed []string
 	)
 	for mode, ok := range MODES_ALLOWED {
@@ -63,20 +64,21 @@ func parseInputFlags(ctx context.Context) {
 	var rootCmd = &cobra.Command{
 		Use:   "main",
 		Short: "modes allowed: " + strings.Join(modesAllowed, ","),
-		Run: func(cmd *cobra.Command, args []string) {
-			arr, _ := cmd.Flags().GetString("modes")
-		},
+		// Run: func(cmd *cobra.Command, args []string) {
+		// 	// arr, _ := cmd.Flags().GetString("m")
+		// 	// _ = arr
+		// },
 	}
 
-	rootCmd.Flags().StringP("modes", "m", strings.Join(modesAllowed, ","), "modes which rules need to be generated, seq with comma")
+	rootCmd.Flags().StringVarP(&modesStr, "modes", "m", strings.Join(modesAllowed, ","), "modes which rules need to be generated, seq with comma")
 
 	// 执行命令
 	if err := rootCmd.Execute(); err != nil {
-		fmt.Println(err)
+		log.Println("parse input failed:", err.Error())
 		return
 	}
 
-	log.Println(modes)
+	log.Println(modesStr)
 }
 
 func SaveConfig(domainReject, domainProxy, domainDirect []string, MODE string) {
