@@ -1,167 +1,82 @@
 package main
 
 import (
+	"context"
 	"encoding/json"
 	"fmt"
+	"log"
 	"os"
+	"sort"
 	"strings"
+
+	"github.com/spf13/cobra"
 )
 
 const (
-	SHADOWROCKET_PREFIX = `
-[General]
-bypass-system = true
-skip-proxy = 192.168.0.0/16, 10.0.0.0/8, 172.16.0.0/12, localhost, *.local, captive.apple.com
-tun-excluded-routes = 10.0.0.0/8, 100.64.0.0/10, 127.0.0.0/8, 169.254.0.0/16, 172.16.0.0/12, 192.0.0.0/24, 192.0.2.0/24, 192.88.99.0/24, 192.168.0.0/16, 198.51.100.0/24, 203.0.113.0/24, 224.0.0.0/4, 255.255.255.255/32, 239.255.255.250/32
-dns-server = system
-fallback-dns-server = system
-ipv6 = true
-prefer-ipv6 = false
-dns-fallback-system = false
-dns-direct-system = false
-icmp-auto-reply = true
-always-reject-url-rewrite = false
-private-ip-answer = true
-# direct domain fail to resolve use proxy rule
-dns-direct-fallback-proxy = true
-# The fallback behavior when UDP traffic matches a policy that doesn't support the UDP relay. Possible values: DIRECT, REJECT.
-udp-policy-not-supported-behaviour = REJECT
+	MODE_SING_BOX     = "sing-box"
+	MODE_CLASH        = "clash"
+	MODE_QUAN_X       = "quan-x"
+	MODE_MATSURI      = "matsuri"
+	MODE_SUREG        = "surge"
+	MODE_SHADOWROCKET = "shadowrocket"
+)
 
-[Rule]
-`
-	SHADOWROCKET_SUFFIX = `
-# LAN
-IP-CIDR,192.168.0.0/16,DIRECT
-IP-CIDR,10.0.0.0/8,DIRECT
-IP-CIDR,172.16.0.0/12,DIRECT
-IP-CIDR,127.0.0.0/8,DIRECT
-# China
-GEOIP,CN,DIRECT
-# Final
-FINAL,PROXY
+var MODES_ALLOWED = map[string]bool{
+	MODE_SING_BOX:     true,
+	MODE_CLASH:        true,
+	MODE_QUAN_X:       true,
+	MODE_MATSURI:      true,
+	MODE_SUREG:        true,
+	MODE_SHADOWROCKET: true,
+}
 
-[Host]
-localhost = 127.0.0.1
-
-[URL Rewrite]
-^https?://(www.)?g.cn https://www.google.com 302
-^https?://(www.)?google.cn https://www.google.com 302
-`
+var (
+	globalCtx    context.Context
+	modes        []string
+	rawRulesPath string
 )
 
 func main() {
-	MODES := []string{
-		"sing-box",
-		"clash",
-		"quan x",
-		"matsuri",
-		"surge",
-		"shadowrocket",
-	}
+	globalCtx = context.Background()
+	ctx, cancel := context.WithCancel(globalCtx)
+	defer cancel()
+	parseInputFlags(ctx)
+	// var domainProxy, domainDirect, domainReject []string
 
-	var domainProxy, domainDirect, domainReject []string
-
-	// PROXY
-	PROXY := "amp-api-edge.apps.apple.com push.apple.com inappcheck.itunes.apple.com nexoncdn.co.kr nexon.com nexon.io "
-	// Google
-	{
-		PROXY += "googleapis.com "
-	}
-	// Microsoft
-	{
-		PROXY += "bing.com "
-		PROXY += "windows.com windows.net office.com microsoft.com live.com "
-		PROXY += "onenote.com contentsync.onenote.com hierarchyapi.onenote.com "
-		PROXY += "microsoftonline.com office.net " // 原来是direct
-		PROXY += "sharepoint.com 1drv.com "        // onedrive
-		PROXY += "googleapis.cn "
-	}
-	// Apple
-	{
-		PROXY += "app.adjust.com "
-	}
-	// Crusaders Quest
-	// {
-	// 	PROXY += "cq.hangame.com "
-	// 	PROXY += "nhn.com gslb-gamebase.nhncloudservice.com toast.com "
+	// for _, MODE := range MODES {
+	// 	SaveConfig(domainReject, domainProxy, domainDirect, MODE)
 	// }
-	// LinkedIn
-	{
-		PROXY += "linkedin.com "
+
+}
+
+func parseInputFlags(ctx context.Context) {
+	var (
+		modesAllowed []string
+	)
+	for mode, ok := range MODES_ALLOWED {
+		if ok && MODES_ALLOWED[mode] {
+			modesAllowed = append(modesAllowed, mode)
+		}
 	}
-	// Leetcode
-	{
-		PROXY += "leetcode.cn "
+	sort.Strings(modesAllowed)
+
+	var rootCmd = &cobra.Command{
+		Use:   "main",
+		Short: "modes allowed: " + strings.Join(modesAllowed, ","),
+		Run: func(cmd *cobra.Command, args []string) {
+			arr, _ := cmd.Flags().GetString("modes")
+		},
 	}
 
-	// DIRECT
-	DIRECT := ""
-	// cn
-	{
-		DIRECT += "baidu.com qq.com zhihu.com dcarstatic.com byteimg.com 163.com csdn.net qcloudimg.com tencent.com bilibili.com "
-	}
-	// Common
-	{
-		DIRECT += "aliyuncs.com "
-	}
-	// hosts
-	{
-		DIRECT += "megasrv.de "
-		DIRECT += "432104.xyz "
-	}
-	// Microsoft
-	{
-		// DIRECT += ""
-	}
-	// Crusaders Quest
-	// {
-	// 	DIRECT += "nhnst.com "
-	// 	DIRECT += "cq-pvp.hangame.com " // 匹配队友，对手（需要直连）
-	// 	DIRECT += "cq-cha.hangame.com " // 进入匹配服务器（需要直连）
-	// 	DIRECT += "toastoven.net "
-	// 	// DIRECT += "cru.cdn.toastoven.net adam.gslb.toastoven.net api-iaptacc.gslb.toastoven.net "
-	// 	DIRECT += "unity3d.com "
-	// }
-	// Steam
-	{
-		DIRECT += "akamaihd.net "
-	}
-	// WeTab
-	{
-		DIRECT += "wetab.link "
-	}
-	// Talkatone
-	{
-		DIRECT += "mobilefuse.com "
-	}
-	// Other
-	{
-		DIRECT += "nodeseek.com "
+	rootCmd.Flags().StringP("modes", "m", strings.Join(modesAllowed, ","), "modes which rules need to be generated, seq with comma")
+
+	// 执行命令
+	if err := rootCmd.Execute(); err != nil {
+		fmt.Println(err)
+		return
 	}
 
-	// REJECT
-	REJECT := ""
-	// analytic
-	{
-		REJECT += "app-measurement.com appsflyer.com google-analytics.com openinstall.io "
-
-	}
-	// ad
-	{
-		REJECT += "amazon-adsystem.com doubleclick.net rubiconproject.com adservice.google.com wwads.cn "
-	}
-	// Baidu
-	{
-		REJECT += "tieba-ares.cdn.bcebos.com "
-	}
-
-	domainProxy = strings.Split(PROXY, " ")
-	domainDirect = strings.Split(DIRECT, " ")
-	domainReject = strings.Split(REJECT, " ")
-
-	for _, MODE := range MODES {
-		SaveConfig(domainReject, domainProxy, domainDirect, MODE)
-	}
+	log.Println(modes)
 }
 
 func SaveConfig(domainReject, domainProxy, domainDirect []string, MODE string) {
@@ -397,30 +312,30 @@ func SaveConfig(domainReject, domainProxy, domainDirect []string, MODE string) {
 			rule = fmt.Sprintf("DOMAIN-SUFFIX,%s\n", domain)
 			confDirect.Write([]byte(rule))
 		}
-	case "shadowrocket":
-		conf, err := os.Create("./rules/shadowrocket.conf")
-		if err != nil {
-			fmt.Println(err.Error())
-			return
-		}
-		defer conf.Close()
+	// case "shadowrocket":
+	// 	conf, err := os.Create("./rules/shadowrocket.conf")
+	// 	if err != nil {
+	// 		fmt.Println(err.Error())
+	// 		return
+	// 	}
+	// 	defer conf.Close()
 
-		conf.Write([]byte(SHADOWROCKET_PREFIX))
+	// 	conf.Write([]byte(SHADOWROCKET_PREFIX))
 
-		for _, domain := range domainReject[:len(domainReject)-1] {
-			rule = fmt.Sprintf("DOMAIN-SUFFIX,%s,REJECT\n", domain)
-			conf.Write([]byte(rule))
-		}
-		for _, domain := range domainProxy[:len(domainProxy)-1] {
-			rule = fmt.Sprintf("DOMAIN-SUFFIX,%s,PROXY\n", domain)
-			conf.Write([]byte(rule))
-		}
-		for _, domain := range domainDirect[:len(domainDirect)-1] {
-			rule = fmt.Sprintf("DOMAIN-SUFFIX,%s,DIRECT\n", domain)
-			conf.Write([]byte(rule))
-		}
+	// 	for _, domain := range domainReject[:len(domainReject)-1] {
+	// 		rule = fmt.Sprintf("DOMAIN-SUFFIX,%s,REJECT\n", domain)
+	// 		conf.Write([]byte(rule))
+	// 	}
+	// 	for _, domain := range domainProxy[:len(domainProxy)-1] {
+	// 		rule = fmt.Sprintf("DOMAIN-SUFFIX,%s,PROXY\n", domain)
+	// 		conf.Write([]byte(rule))
+	// 	}
+	// 	for _, domain := range domainDirect[:len(domainDirect)-1] {
+	// 		rule = fmt.Sprintf("DOMAIN-SUFFIX,%s,DIRECT\n", domain)
+	// 		conf.Write([]byte(rule))
+	// 	}
 
-		conf.Write([]byte(SHADOWROCKET_SUFFIX))
+	// 	conf.Write([]byte(SHADOWROCKET_SUFFIX))
 	default:
 		fmt.Println("no such mode:", MODE)
 	}

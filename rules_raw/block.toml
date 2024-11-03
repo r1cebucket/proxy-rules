@@ -1,0 +1,19 @@
+# block domains
+[block]
+"domain_sufix" = [
+    # analytic
+    "app-measurement.com",
+    "appsflyer.com",
+    "google-analytics.com",
+    "openinstall.io",
+
+    # ads
+    "amazon-adsystem.com",
+    "doubleclick.net",
+    "rubiconproject.com",
+    "adservice.google.com",
+    "wwads.cn",
+
+    # Baidu
+    "tieba-ares.cdn.bcebos.com",
+]

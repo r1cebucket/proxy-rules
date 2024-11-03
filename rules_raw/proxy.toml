@@ -1,0 +1,39 @@
+# proxy domains
+[proxy]
+"domain_sufix" = [
+    # Apple
+    "amp-api-edge.apps.apple.com",
+    "push.apple.com",
+    "inappcheck.itunes.apple.com",
+    "app.adjust.com",
+
+    # Google 
+    "googleapis.com",
+    "googleapis.cn",
+
+    # Microsoft
+    "bing.com",
+    "windows.com",
+    "windows.net",
+    "office.com",
+    "microsoft.com",
+    "live.com",
+    "onenote.com",
+    "contentsync.onenote.com",
+    "hierarchyapi.onenote.com",
+    "microsoftonline.com",
+    "office.net",
+    "sharepoint.com",
+    "1drv.com",
+
+    # Nexon
+    "nexoncdn.co.kr",
+    "nexon.com",
+    "nexon.io",
+
+    # LinkedIn
+    "linkedin.com",
+
+    # Leetcode
+    "leetcode.cn",
+]
