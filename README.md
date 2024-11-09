@@ -1,4 +1,4 @@
-### matsuri
-- Crusaders Quest: 需要添加 UDP IP 规则 103.194.108.202，103.194.108.203 直连
-### links
-https://github.com/r1cebucket/proxy-rules/releases/latest/download/clash.conf
+# proxy-rules
+The main purpose of this project is to generate rules for multiple platforms, while only one config file needs to be maintained.  
+### statics
+https://github.com/r1cebucket/proxy-rules/releases/latest/download/clash.conf  

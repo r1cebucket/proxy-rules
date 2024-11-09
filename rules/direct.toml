@@ -1,0 +1,44 @@
+# direct domains
+[direct]
+"domain_suffix" = [
+    # Baidu
+    "baidu.com",
+
+    # Alibaba
+    "aliyuncs.com",
+
+    # Tencent
+    "qq.com",
+    "qcloudimg.com",
+    "tencent.com",
+
+    # Zhihu
+    "zhihu.com",
+
+    # Bytedance
+    "byteimg.com",
+
+    # Netease
+    "163.com",
+
+    # CSDN
+    "csdn.net",
+
+    # Bilibili
+    "bilibili.com",
+
+    # Steam
+    "akamaihd.net",
+
+    # Talkatone
+    "mobilefuse.com",
+
+    # Other
+    "dcarstatic.com",
+    "wetab.link", # WeTab
+    "sharon.io", # Sharon
+
+    # Host
+    "megasrv.de", # netcup
+    "432104.xyz",
+]
