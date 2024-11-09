@@ -9,23 +9,34 @@ import (
 type ShadowRocket struct{}
 
 func (m ShadowRocket) GenRules(ruleSet rule.RuleSet, outDir string) error {
-	rules, err := os.Create(outDir + "/shadowrocket.conf")
+	rulesReject, err := os.Create(outDir + "/shadowrocket_reject.conf")
 	if err != nil {
 		return err
 	}
-	defer rules.Close()
-	rules.Write([]byte("[Rule]\n"))
+	rulesProxy, err := os.Create(outDir + "/shadowrocket_proxy.conf")
+	if err != nil {
+		return err
+	}
+	rulesDirect, err := os.Create(outDir + "/shadowrocket_direct.conf")
+	if err != nil {
+		return err
+	}
+	defer rulesReject.Close()
+	defer rulesProxy.Close()
+	defer rulesDirect.Close()
+
 	for _, domain := range ruleSet.Reject.DomainSuffix {
-		rule := fmt.Sprintf("DOMAIN-SUFFIX,%s,REJECT\n", domain)
-		rules.Write([]byte(rule))
+		rule := fmt.Sprintf("DOMAIN-SUFFIX,%s\n", domain)
+		rulesReject.Write([]byte(rule))
 	}
 	for _, domain := range ruleSet.Proxy.DomainSuffix {
-		rule := fmt.Sprintf("DOMAIN-SUFFIX,%s,PROXY\n", domain)
-		rules.Write([]byte(rule))
+		rule := fmt.Sprintf("DOMAIN-SUFFIX,%s\n", domain)
+		rulesProxy.Write([]byte(rule))
 	}
 	for _, domain := range ruleSet.Direct.DomainSuffix {
-		rule := fmt.Sprintf("DOMAIN-SUFFIX,%s,DIRECT\n", domain)
-		rules.Write([]byte(rule))
+		rule := fmt.Sprintf("DOMAIN-SUFFIX,%s\n", domain)
+		rulesDirect.Write([]byte(rule))
 	}
+
 	return nil
 }

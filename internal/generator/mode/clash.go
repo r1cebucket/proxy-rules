@@ -29,7 +29,7 @@ func (m Clash) GenRules(ruleSet rule.RuleSet, outDir string) error {
 	rulesProxy.Write([]byte("payload:\n"))
 	rulesDirect.Write([]byte("payload:\n"))
 
-	for _, domain := range ruleSet.Direct.DomainSuffix {
+	for _, domain := range ruleSet.Reject.DomainSuffix {
 		rule := fmt.Sprintf("  - '+.%s'\n", domain)
 		rulesReject.Write([]byte(rule))
 	}
