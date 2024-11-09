@@ -1,6 +1,6 @@
 # proxy domains
 [proxy]
-"domain_sufix" = [
+"domain_suffix" = [
     # Apple
     "amp-api-edge.apps.apple.com",
     "push.apple.com",

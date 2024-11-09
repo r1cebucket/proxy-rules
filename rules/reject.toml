@@ -1,6 +1,6 @@
-# block domains
-[block]
-"domain_sufix" = [
+# reject domains
+[reject]
+"domain_suffix" = [
     # analytic
     "app-measurement.com",
     "appsflyer.com",

@@ -34,4 +34,4 @@ jobs:
           draft: false
           prerelease: false
           files: |
-            rules/*
+            data/rules/*
