@@ -17,7 +17,7 @@ jobs:
           check-latest: true
 
       - name: Run Go program
-        run: go run main.go | ls data/rules
+        run: go run main.go
 
       - name: Generate release timestamp
         id: timestamp

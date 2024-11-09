@@ -1,7 +1,6 @@
 package main
 
 import (
-	"context"
 	"log"
 	"os"
 	"proxy-rules/internal/generator"
@@ -17,12 +16,14 @@ const (
 	ruleOutDir   = "./data/rules"
 )
 
-var (
-	globalCtx context.Context
-	modes     []string
-)
+var modes []string
 
 func main() {
+	if err := os.MkdirAll(ruleOutDir, os.ModePerm); err != nil {
+		log.Printf("failed to create output dir: %+v\n", err)
+		return
+	}
+
 	parseInputFlags()
 
 	ruleSet, err := rule.ReadConf(ruleConfPath)
