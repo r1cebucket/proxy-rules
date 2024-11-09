@@ -1,8 +1,8 @@
 # direct domains
 [direct]
 "domain_suffix" = [
-    # Baidu
-    "baidu.com",
+    # # Baidu
+    # "baidu.com",
 
     # Alibaba
     "aliyuncs.com",
@@ -36,6 +36,10 @@
     "kochava.com",
     "cohere.com",
     "ip-api.com",
+    "talkatone.com",
+    "tktn.at",
+    "agkn.com",
+    "kavedit.site",
 
     # Other
     "dcarstatic.com",

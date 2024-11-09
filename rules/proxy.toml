@@ -45,4 +45,10 @@
 
     # Cloudflare
     "onetrust.com",
+
+    # Talkatone
+    "tktn.be",
+
+    # Github
+    "githubusercontent.com",
 ]
