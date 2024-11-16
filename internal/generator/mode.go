@@ -23,4 +23,5 @@ var MODES_ALLOWED = map[string]bool{
 var ModeGenerator = map[string]Generator{
 	MODE_CLASH:        mode.Clash{},
 	MODE_SHADOWROCKET: mode.ShadowRocket{},
+	MODE_SING_BOX:     mode.SingBox{},
 }
