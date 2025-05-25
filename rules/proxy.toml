@@ -8,8 +8,9 @@
     "app.adjust.com",
 
     # Google 
-    "googleapis.com",
+    "googleapis.com
     "googleapis.cn",
+    "google.cn",
 
     # Microsoft
     "bing.com",
