@@ -2,7 +2,7 @@
 [direct]
 "domain_suffix" = [
     # # Baidu
-    # "baidu.com",
+    "baidu.com",
 
     # Alibaba
     "aliyuncs.com",
