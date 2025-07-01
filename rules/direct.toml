@@ -3,6 +3,7 @@
 "domain_suffix" = [
     # # Baidu
     "baidu.com",
+    "baidu.com:50001",
 
     # Alibaba
     "aliyuncs.com",
