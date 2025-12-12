@@ -12,4 +12,6 @@ rm $file_name
 mv ./$file_name_base/sing-box ./
 rm -r $file_name_base
 
-./sing-box rule-set compile ../rules/sing-box_*.json
+./sing-box rule-set compile ../rules/sing-box_direct.json
+./sing-box rule-set compile ../rules/sing-box_proxy.json
+./sing-box rule-set compile ../rules/sing-box_reject.json
