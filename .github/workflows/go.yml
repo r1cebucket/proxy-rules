@@ -16,8 +16,8 @@ jobs:
           go-version: 'stable'
           check-latest: true
 
-      - name: Run Go program
-        run: go run main.go
+      - name: Build
+        run: sh ./build-rules.sh https://github.com/SagerNet/sing-box/releases/download/v1.12.12/sing-box-1.12.12-linux-amd64.tar.gz
 
       - name: Generate release timestamp
         id: timestamp

@@ -33,15 +33,15 @@ func (m SingBox) GenRules(ruleSet rule.RuleSet, outDir string) error {
 		Version: 1,
 	}
 
-	rulesReject, err := os.Create(outDir + "/sing-box_reject.conf")
+	rulesReject, err := os.Create(outDir + "/sing-box_reject.json")
 	if err != nil {
 		return err
 	}
-	rulesProxy, err := os.Create(outDir + "/sing-box_proxy.conf")
+	rulesProxy, err := os.Create(outDir + "/sing-box_proxy.json")
 	if err != nil {
 		return err
 	}
-	rulesDirect, err := os.Create(outDir + "/sing-box_direct.conf")
+	rulesDirect, err := os.Create(outDir + "/sing-box_direct.json")
 	if err != nil {
 		return err
 	}
