@@ -1,7 +1,10 @@
 # direct domains
 [direct]
 "domain_suffix" = [
-    # # Baidu
+    # system
+    "captive.apple.com",
+
+    # Baidu
     "baidu.com",
 
     # Alibaba
