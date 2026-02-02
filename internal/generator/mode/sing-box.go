@@ -18,19 +18,19 @@ func (m SingBox) GenRules(ruleSet rule.RuleSet, outDir string) error {
 		Rules: []map[string]interface{}{
 			{"domain_suffix": ruleSet.Reject.DomainSuffix},
 		},
-		Version: 2,
+		Version: 1,
 	}
 	confProxy := rulesConf{
 		Rules: []map[string]interface{}{
 			{"domain_suffix": ruleSet.Proxy.DomainSuffix},
 		},
-		Version: 2,
+		Version: 1,
 	}
 	confDirect := rulesConf{
 		Rules: []map[string]interface{}{
 			{"domain_suffix": ruleSet.Direct.DomainSuffix},
 		},
-		Version: 2,
+		Version: 1,
 	}
 
 	rulesReject, err := os.Create(outDir + "/sing-box_reject.json")
