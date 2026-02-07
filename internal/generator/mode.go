@@ -9,6 +9,7 @@ const (
 	MODE_MATSURI      = "matsuri"
 	MODE_SUREG        = "surge"
 	MODE_SHADOWROCKET = "shadowrocket"
+	MODE_EGERN        = "egern"
 )
 
 var MODES_ALLOWED = map[string]bool{
@@ -18,10 +19,13 @@ var MODES_ALLOWED = map[string]bool{
 	MODE_MATSURI:      true,
 	MODE_SUREG:        true,
 	MODE_SHADOWROCKET: true,
+	MODE_EGERN:        true,
 }
 
 var ModeGenerator = map[string]Generator{
 	MODE_CLASH:        mode.Clash{},
 	MODE_SHADOWROCKET: mode.ShadowRocket{},
 	MODE_SING_BOX:     mode.SingBox{},
+	MODE_QUAN_X:       mode.QuanX{},
+	MODE_EGERN:        mode.Egern{},
 }

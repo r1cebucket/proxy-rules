@@ -1,6 +1,7 @@
 package main
 
 import (
+	"fmt"
 	"log"
 	"os"
 	"proxy-rules/internal/generator"
@@ -16,62 +17,69 @@ const (
 	ruleOutDir   = "./data/rules"
 )
 
-var modes []string
+var rootCmd = &cobra.Command{
+	Use:   "proxy-rules",
+	Short: "Generate proxy rules for various proxy tools",
+	RunE:  run,
+}
+
+func init() {
+	modesAllowed := getAllowedModes()
+	rootCmd.Flags().StringP("modes", "m", strings.Join(modesAllowed, ","),
+		"modes which rules need to be generated, separated by comma. Available modes: "+strings.Join(modesAllowed, ","))
+}
 
 func main() {
-	if err := os.MkdirAll(ruleOutDir, os.ModePerm); err != nil {
-		log.Printf("failed to create output dir: %+v\n", err)
-		return
-	}
-
-	parseInputFlags()
-
-	ruleSet, err := rule.ReadConf(ruleConfPath)
-	if err != nil {
-		log.Printf("read rule conf failed: %+v", err)
-	}
-
-	for _, mode := range modes {
-		if gen, ok := generator.ModeGenerator[mode]; ok {
-			if err := gen.GenRules(ruleSet, ruleOutDir); err != nil {
-				log.Printf("gen rules for %s failed: %+v", mode, err)
-			}
-		}
+	if err := rootCmd.Execute(); err != nil {
+		log.Println("Error:", err)
+		os.Exit(1)
 	}
 }
 
-func parseInputFlags() {
-	var (
-		modesStr     string
-		modesAllowed []string
-	)
-	for mode, ok := range generator.MODES_ALLOWED {
-		if ok && generator.MODES_ALLOWED[mode] {
+func run(cmd *cobra.Command, args []string) error {
+	if err := os.MkdirAll(ruleOutDir, os.ModePerm); err != nil {
+		return fmt.Errorf("failed to create output dir: %w", err)
+	}
+
+	ruleSet, err := rule.ReadConf(ruleConfPath)
+	if err != nil {
+		return fmt.Errorf("read rule conf failed: %w", err)
+	}
+
+	modesStr, err := cmd.Flags().GetString("modes")
+	if err != nil {
+		return fmt.Errorf("failed to get modes flag: %w", err)
+	}
+
+	var modes []string
+	if len(modesStr) > 0 {
+		modes = strings.Split(modesStr, ",")
+	} else {
+		modes = getAllowedModes()
+	}
+
+	for _, mode := range modes {
+		mode = strings.TrimSpace(mode)
+		if mode == "" {
+			continue
+		}
+		if gen, ok := generator.ModeGenerator[mode]; ok {
+			if err := gen.GenRules(ruleSet, ruleOutDir); err != nil {
+				return fmt.Errorf("gen rules for %s failed: %w", mode, err)
+			}
+		}
+	}
+
+	return nil
+}
+
+func getAllowedModes() []string {
+	var modesAllowed []string
+	for mode := range generator.MODES_ALLOWED {
+		if generator.MODES_ALLOWED[mode] {
 			modesAllowed = append(modesAllowed, mode)
 		}
 	}
 	sort.Strings(modesAllowed)
-
-	var rootCmd = &cobra.Command{
-		Use:   "main",
-		Short: "modes allowed: " + strings.Join(modesAllowed, ","),
-		PreRun: func(cmd *cobra.Command, args []string) {
-			// --help or -h
-			helpFlag, _ := cmd.Flags().GetBool("help")
-			if helpFlag {
-				cmd.Help()
-				os.Exit(0)
-			}
-		},
-		Run: func(cmd *cobra.Command, args []string) {
-			modes = strings.Split(modesStr, ",")
-		},
-	}
-
-	rootCmd.Flags().StringVarP(&modesStr, "modes", "m", strings.Join(modesAllowed, ","), "modes which rules need to be generated, sep with comma")
-
-	if err := rootCmd.Execute(); err != nil {
-		log.Println("parse input failed:", err.Error())
-		return
-	}
+	return modesAllowed
 }
