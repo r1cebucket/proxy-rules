@@ -16,19 +16,28 @@ func (m SingBox) GenRules(ruleSet rule.RuleSet, outDir string) error {
 
 	confReject := rulesConf{
 		Rules: []map[string]interface{}{
-			{"domain_suffix": ruleSet.Reject.DomainSuffix},
+			{
+				"domain_suffix":  ruleSet.Reject.DomainSuffix,
+				"domain_keyword": ruleSet.Reject.DomainKeyword,
+			},
 		},
 		Version: 1,
 	}
 	confProxy := rulesConf{
 		Rules: []map[string]interface{}{
-			{"domain_suffix": ruleSet.Proxy.DomainSuffix},
+			{
+				"domain_suffix":  ruleSet.Proxy.DomainSuffix,
+				"domain_keyword": ruleSet.Proxy.DomainKeyword,
+			},
 		},
 		Version: 1,
 	}
 	confDirect := rulesConf{
 		Rules: []map[string]interface{}{
-			{"domain_suffix": ruleSet.Direct.DomainSuffix},
+			{
+				"domain_suffix":  ruleSet.Direct.DomainSuffix,
+				"domain_keyword": ruleSet.Direct.DomainKeyword,
+			},
 		},
 		Version: 1,
 	}

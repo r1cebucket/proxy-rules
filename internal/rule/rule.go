@@ -14,7 +14,8 @@ type RuleSet struct {
 }
 
 type Rules struct {
-	DomainSuffix []string `toml:"domain_suffix"`
+	DomainSuffix  []string `toml:"domain_suffix"`
+	DomainKeyword []string `toml:"domain_keyword"`
 }
 
 func ReadConf(path string) (RuleSet, error) {

@@ -11,21 +11,25 @@ type Egern struct{}
 
 func (m Egern) GenRules(ruleSet rule.RuleSet, outDir string) error {
 	type rulesConf struct {
-		NoResolve       bool     `yaml:"no_resolve"`
-		DomainSuffixSet []string `yaml:"domain_suffix_set"`
+		NoResolve        bool     `yaml:"no_resolve"`
+		DomainSuffixSet  []string `yaml:"domain_suffix_set,omitempty"`
+		DomainKeywordSet []string `yaml:"domain_keyword_set,omitempty"`
 	}
 
 	confReject := rulesConf{
-		NoResolve:       true,
-		DomainSuffixSet: ruleSet.Reject.DomainSuffix,
+		NoResolve:        true,
+		DomainSuffixSet:  ruleSet.Reject.DomainSuffix,
+		DomainKeywordSet: ruleSet.Reject.DomainKeyword,
 	}
 	confProxy := rulesConf{
-		NoResolve:       true,
-		DomainSuffixSet: ruleSet.Proxy.DomainSuffix,
+		NoResolve:        true,
+		DomainSuffixSet:  ruleSet.Proxy.DomainSuffix,
+		DomainKeywordSet: ruleSet.Proxy.DomainKeyword,
 	}
 	confDirect := rulesConf{
-		NoResolve:       true,
-		DomainSuffixSet: ruleSet.Direct.DomainSuffix,
+		NoResolve:        true,
+		DomainSuffixSet:  ruleSet.Direct.DomainSuffix,
+		DomainKeywordSet: ruleSet.Direct.DomainKeyword,
 	}
 
 	rulesReject, err := os.Create(outDir + "/egern_reject.yaml")

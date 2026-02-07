@@ -25,6 +25,7 @@ func (m ShadowRocket) GenRules(ruleSet rule.RuleSet, outDir string) error {
 	defer rulesProxy.Close()
 	defer rulesDirect.Close()
 
+	// domain_suffix
 	for _, domain := range ruleSet.Reject.DomainSuffix {
 		rule := fmt.Sprintf("DOMAIN-SUFFIX,%s\n", domain)
 		rulesReject.Write([]byte(rule))
@@ -35,6 +36,19 @@ func (m ShadowRocket) GenRules(ruleSet rule.RuleSet, outDir string) error {
 	}
 	for _, domain := range ruleSet.Direct.DomainSuffix {
 		rule := fmt.Sprintf("DOMAIN-SUFFIX,%s\n", domain)
+		rulesDirect.Write([]byte(rule))
+	}
+	// domain_keyword
+	for _, domain := range ruleSet.Reject.DomainKeyword {
+		rule := fmt.Sprintf("DOMAIN-KEYWORD,%s\n", domain)
+		rulesReject.Write([]byte(rule))
+	}
+	for _, domain := range ruleSet.Proxy.DomainKeyword {
+		rule := fmt.Sprintf("DOMAIN-KEYWORD,%s\n", domain)
+		rulesProxy.Write([]byte(rule))
+	}
+	for _, domain := range ruleSet.Direct.DomainKeyword {
+		rule := fmt.Sprintf("DOMAIN-KEYWORD,%s\n", domain)
 		rulesDirect.Write([]byte(rule))
 	}
 

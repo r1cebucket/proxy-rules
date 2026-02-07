@@ -26,3 +26,5 @@
     # Baidu
     "tieba-ares.cdn.bcebos.com",
 ]
+
+"domain_keyword" = []

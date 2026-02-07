@@ -36,5 +36,7 @@
 
     # Other
     "dcarstatic.com",
-    "sharon.io", # Sharon
+    "sharon.io",      # Sharon
 ]
+
+"domain_keyword" = []
