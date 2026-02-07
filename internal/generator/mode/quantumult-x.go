@@ -27,28 +27,28 @@ func (m QuanX) GenRules(ruleSet rule.RuleSet, outDir string) error {
 
 	// domain_suffix
 	for _, domain := range ruleSet.Reject.DomainSuffix {
-		rule := fmt.Sprintf("host-suffix,%s\n", domain)
+		rule := fmt.Sprintf("host-suffix,%s,reject\n", domain)
 		rulesReject.Write([]byte(rule))
 	}
 	for _, domain := range ruleSet.Proxy.DomainSuffix {
-		rule := fmt.Sprintf("host-suffix,%s\n", domain)
+		rule := fmt.Sprintf("host-suffix,%s,proxy\n", domain)
 		rulesProxy.Write([]byte(rule))
 	}
 	for _, domain := range ruleSet.Direct.DomainSuffix {
-		rule := fmt.Sprintf("host-suffix,%s\n", domain)
+		rule := fmt.Sprintf("host-suffix,%s,direct\n", domain)
 		rulesDirect.Write([]byte(rule))
 	}
 	// domain_keyword
 	for _, domain := range ruleSet.Reject.DomainKeyword {
-		rule := fmt.Sprintf("host-keyword,%s\n", domain)
+		rule := fmt.Sprintf("host-keyword,%s,reject\n", domain)
 		rulesReject.Write([]byte(rule))
 	}
 	for _, domain := range ruleSet.Proxy.DomainKeyword {
-		rule := fmt.Sprintf("host-keyword,%s\n", domain)
+		rule := fmt.Sprintf("host-keyword,%s,proxy\n", domain)
 		rulesProxy.Write([]byte(rule))
 	}
 	for _, domain := range ruleSet.Direct.DomainKeyword {
-		rule := fmt.Sprintf("host-keyword,%s\n", domain)
+		rule := fmt.Sprintf("host-keyword,%s,direct\n", domain)
 		rulesDirect.Write([]byte(rule))
 	}
 
