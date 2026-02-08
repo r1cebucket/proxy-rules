@@ -11,6 +11,7 @@
     "googleapis.com",
     "googleapis.cn",
     "google.cn",
+    "gstatic.cn",
 
     # Microsoft
     "bing.com",
@@ -112,6 +113,9 @@
     "tiktokv.us",
     "trae.ai",
     "ttwebview.com",
+
+    # quan x
+    "quantumult.app",
 ]
 
 "domain_keyword" = [
