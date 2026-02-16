@@ -25,6 +25,9 @@
 
     # Baidu
     "tieba-ares.cdn.bcebos.com",
+
+    # others
+    "skk.moe",
 ]
 
 "domain_keyword" = []
