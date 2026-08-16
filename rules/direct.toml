@@ -3,6 +3,9 @@
 "domain_suffix" = [
     # system
     "captive.apple.com",
+    "dns.msftncsi.com",
+    "www.msftncsi.com",
+    "www.msftconnecttest.com",
 
     # Baidu
     "baidu.com",
