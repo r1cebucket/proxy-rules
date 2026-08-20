@@ -117,6 +117,9 @@
 
     # quan x
     "quantumult.app",
+
+    # other
+    "updf.com",
 ]
 
 "domain_keyword" = [
