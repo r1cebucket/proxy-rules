@@ -3,8 +3,9 @@
 "domain_suffix" = [
     # analytic
     "app-measurement.com",
-    "appsflyer.com",
+    "app-analytics-services.com",
     "google-analytics.com",
+    "appsflyer.com",
     "openinstall.io",
 
     # ads
