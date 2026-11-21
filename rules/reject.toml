@@ -24,8 +24,11 @@
     "appiersig.com",
     "inmobi.com",
 
-    # Baidu
+    # baidu
     "tieba-ares.cdn.bcebos.com",
+
+    # tencent
+    "apd-pcdnwxnat.teg.tencent-cloud.net",
 
     # others
     "skk.moe",
